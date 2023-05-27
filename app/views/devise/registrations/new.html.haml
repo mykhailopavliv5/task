@@ -1,0 +1,24 @@
+.container
+  .row.d-flex.align-items-center.justify-content-center.min-vh-100
+    .col-12.col-sm-6.m-auto
+      .card.border-0
+        .card-body
+          %form{action: registration_path(resource_name), as: resource_name, method: :post}
+            .text-center
+              %h1.h3.mb-3.fw-normal Sign up
+            .form-floating
+              %input.form-control{placeholder: "First name", type: "text", name: "#{resource_name}[first_name]"}
+              %label{for: :first_name} First name
+            .form-floating.mt-1
+              %input.form-control{placeholder: "Last name", type: "text", name: "#{resource_name}[last_name]"}
+              %label{for: "last_name"} Last name
+            .form-floating.mt-1
+              %input.form-control{placeholder: "Email", type: "email", name: "#{resource_name}[email]", autofocus: true, autocomplete: "email"}
+              %label{for: "email"} Email address
+            .form-floating.mt-1
+              %input.form-control{placeholder: "Password", type: "password", name: "#{resource_name}[password]", autocomplete: "new-password"}
+              %label{for: "password"} Password
+            .mb-3
+            %button.w-100.btn.btn-lg.btn-primary{type: "submit"} Sign up
+            .mt-1
+              = link_to "Back", new_session_path(resource_name), class: 'btn btn-lg btn-secondary w-100'

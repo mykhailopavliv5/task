@@ -1,0 +1,17 @@
+.container
+  .row.d-flex.align-items-center.justify-content-center.min-vh-100
+    .col-12.col-sm-6.m-auto
+      .card.border-0
+        .card-body
+          %form{action: session_path(resource_name), as: resource_name, method: :post}
+            .text-center
+              %h1.h3.mb-3.fw-normal Log in
+            .form-floating.rounded-0
+              %input.form-control{placeholder: "Email", type: "email", name: "#{resource_name}[email]", autofocus: true, autocomplete: "email"}/
+              %label{for: "floatingEmail"} Email address
+            .form-floating.mt-1
+              %input.form-control{placeholder: "Password", type: "password", name: "#{resource_name}[password]", autocomplete: "current-password"}/
+              %label{for: "floatingPassword"} Password
+            %button.w-100.btn.btn-lg.btn-primary.mt-1{type: "submit"} Sign in
+            .mt-1
+              = link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-lg btn-secondary w-100'
