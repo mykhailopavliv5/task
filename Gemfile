@@ -33,4 +33,5 @@ group :test do
   gem 'webdrivers', '~> 5.2'
 end
 
-gem "devise", "~> 4.9"
+gem 'devise', '~> 4.9'
+gem 'paper_trail', '~> 14.0'

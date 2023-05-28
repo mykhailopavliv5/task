@@ -1,0 +1,9 @@
+- if task.low?
+  %h5
+    %span.badge.bg-success= task.priority
+- elsif task.medium?
+  %h5
+    %span.badge.bg-warning= task.priority
+- elsif task.high?
+  %h5
+    %span.badge.bg-danger= task.priority
