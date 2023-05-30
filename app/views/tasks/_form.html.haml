@@ -1,26 +1,22 @@
-.card.border-0
-  .card-body
-    %h5.card-title.text-center #{params[:action].capitalize} todo
-    %main.w-100.m-auto{style: 'max-width: 600px'}
-      = form_with(model: task, local: true) do |form|
-        .form-floating
-          = form.text_field :title, class: 'form-control', placeholder: "Title", type: "text", required: true
-          = form.label :title, for: "floatingTitle"
-        .form-floating.mt-1
-          = form.text_area :description, class: 'form-control', placeholder: "Description", type: "text", style: "height: 200px", required: true
-          = form.label :description, for: "floatingDescription"
-        .row.g-2.mt-1
-          .col-md
-            .form-floating
-              = form.select :status, options_for_select(Task.statuses.keys, @task.status), { include_blank: false }, class: 'form-select'
-              = form.label :status, 'Status', class: 'form-label'
-          .col-md
-            .form-floating
-              = form.select :priority, options_for_select(Task.priorities.keys, @task.priority), { include_blank: false }, class: 'form-select'
-              = form.label :priority, 'Priority', class: 'form-label'
-        .actions
-          .row.g-2.mt-1
-            .col-md.d-grid
-              = link_to "Back", tasks_path, class: 'btn btn-secondary'
-            .col-md.d-grid
-              = form.submit 'Save', class: 'btn btn-primary'
+= form_with(model: task, id: "#{dom_id(task)}_form") do |form|
+  .form-floating
+    = form.text_field :title, class: 'form-control', placeholder: "Title", type: "text", required: true
+    = form.label :title, for: "floatingTitle"
+  .form-floating.mt-1
+    = form.text_area :description, class: 'form-control', placeholder: "Description", type: "text", style: "height: 200px", required: true
+    = form.label :description, for: "floatingDescription"
+  .row.g-2.mt-1
+    .col-md
+      .form-floating
+        = form.select :status, options_for_select(Task.statuses.keys, @task.status), { include_blank: false }, class: 'form-select'
+        = form.label :status, 'Status', class: 'form-label'
+    .col-md
+      .form-floating
+        = form.select :priority, options_for_select(Task.priorities.keys, @task.priority), { include_blank: false }, class: 'form-select'
+        = form.label :priority, 'Priority', class: 'form-label'
+  .actions
+    .row.g-2.mt-1
+      .col-md.d-grid
+        = link_to "Back", tasks_path, class: 'btn btn-secondary'
+      .col-md.d-grid
+        = form.submit 'Save', class: 'btn btn-primary'

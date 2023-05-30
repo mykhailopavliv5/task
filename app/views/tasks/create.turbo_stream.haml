@@ -1,0 +1,4 @@
+= turbo_stream.prepend "tasks" do
+  = render "task", task: @task
+= turbo_stream.replace "#{dom_id(Task.new)}_form" do
+  = render "form", task: Task.new

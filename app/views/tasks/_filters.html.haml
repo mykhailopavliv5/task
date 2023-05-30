@@ -1,0 +1,6 @@
+= form_with(url: tasks_path, method: :get, data: { controller: "filters", filters_target: "filter", turbo_frame: "table" }) do |f|
+  = f.label :priorities, "Filter by priority"
+  = f.select :priorities,
+    options_for_select(Task.priorities.keys, Task.priorities.keys),
+    { include_blank: false },
+    { data: { action: "filters#submit" }, class: 'selectpicker', multiple: true }

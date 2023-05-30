@@ -6,7 +6,11 @@ class Task < ApplicationRecord
 
   has_paper_trail
 
-  scope :undiscarded, -> { where(deleted_at: nil) }
+  scope :undiscarded,         -> { where(deleted_at: nil) }
+
+  def self.filter_by_priority(priorities)
+    where(priority: priorities)
+  end
 
   def discard
     update(deleted_at: Time.current)

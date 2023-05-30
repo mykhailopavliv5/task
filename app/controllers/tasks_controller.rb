@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = current_user.tasks.undiscarded.order(:priority)
+    @tasks = @tasks.filter_by_priority(params[:priorities]) unless params[:priorities]&.reject(&:blank?).blank?
   end
 
   def new
@@ -11,10 +12,14 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    if @task.save
-      redirect_to tasks_path
-    else
-      render :new
+    
+    respond_to do |format|
+      if @task.save
+        format.turbo_stream
+        format.html { redirect_to task_url(@task) }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -24,21 +29,30 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_params)
-      redirect_to tasks_path
-    else
-      render :edit
+   
+    respond_to do |format|
+      if @task.update(task_params)
+        format.turbo_stream
+        format.html { redirect_to task_url(@task) }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 
   def logs
-    @logs = Task.find(params[:id]).versions
+    @task = Task.find(params[:id])
+    @logs = @task.versions.reorder(created_at: :desc)
   end
 
   def destroy
     @task = Task.find(params[:id])
     @task.discard
-    redirect_to tasks_path
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to tasks_path, notice: 'Task was successfully destroyed.' }
+    end
   end
 
   private

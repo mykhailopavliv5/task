@@ -1,3 +1,7 @@
 = render 'header'
-= render 'form', task: @task
+.card.border-0
+  .card-body
+    %h5.card-title.text-center New task
+    %main.w-100.m-auto{style: 'max-width: 600px'}
+      = render 'form', task: @task
 = render 'footer'

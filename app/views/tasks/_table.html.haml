@@ -1,0 +1,28 @@
+= turbo_frame_tag "table" do
+  %table.table.table-borderless.table-responsive
+    %thead
+      %tr
+        %th.table-cell{scope: "col-2"} Todo
+        %th.table-cell{scope: "col-2"} In progress
+        %th.table-cell{scope: "col-2"} Review
+        %th.table-cell{scope: "col-2"} Done
+        %th.table-cell{scope: "col-2"} Cancelled
+    %tbody
+      - max_tasks = [@tasks.count, @tasks.where(status: 4).count, @tasks.where(status: 1).count, @tasks.where(status: 2).count, @tasks.where(status: 3).count, @tasks.where(status: 4).count].max
+      - (0...max_tasks).each do |index|
+        %tr
+          %td
+            - task = @tasks.where(status: 0).offset(index).first
+            = render 'task', task: task if task
+          %td
+            - task = @tasks.where(status: 1).offset(index).first
+            = render 'task', task: task if task
+          %td
+            - task = @tasks.where(status: 2).offset(index).first
+            = render 'task', task: task if task
+          %td
+            - task = @tasks.where(status: 3).offset(index).first
+            = render 'task', task: task if task
+          %td
+            - task = @tasks.where(status: 4).offset(index).first
+            = render 'task', task: task if task
